@@ -1,0 +1,31 @@
+Approach : Brute Force
+Time complexity : O(n^2)
+Space complexity : O(1)
+
+class Solution {
+    public int freq(String[] arr, String findStr) {
+        int count = 0;
+        for(String s : arr) {
+            if(s.equals(findStr)) {
+                count++;
+            }
+            if(count > 1){
+                return count;
+            }
+        }
+        return count;
+    }
+    public String kthDistinct(String[] arr, int k) {
+        int count = 0;
+
+        for(String s : arr) {
+            if(freq(arr, s) == 1) {
+                count++;
+            }
+            if(count == k) {
+                return s;
+            }
+        }
+        return "";
+    }
+}
