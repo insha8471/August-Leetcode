@@ -1,0 +1,30 @@
+Time complexity : O(2^n * k)
+Space complexity : O(k*x)
+
+class Solution {
+    public void helper(int idx,int remSum, int[] candidates, List<List<Integer>> res, List<Integer> ls){
+        if(remSum == 0){
+            res.add(new ArrayList<>(ls));
+            return;
+        }
+
+        for(int i=idx;i<candidates.length;i++) {
+            if(i > idx && candidates[i] == candidates[i-1]){
+                continue;
+            }
+
+            if(candidates[i] > remSum) break;
+
+            ls.add(candidates[i]);
+            helper(i+1,remSum-candidates[i], candidates, res,ls);
+            ls.remove(ls.size()-1);
+        }
+    }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        Arrays.sort(candidates);
+        helper(0,target,candidates, result, new ArrayList<>());
+        return result;
+    }
+}
