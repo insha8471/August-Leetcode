@@ -1,0 +1,22 @@
+Approach : Greedy
+Time complexity : O(m)
+
+class Solution {
+    public int maxDistance(List<List<Integer>> arrays) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int result = 0;
+
+        for(List<Integer> arr : arrays) {
+            int n = arr.size();
+            if(min != Integer.MAX_VALUE){
+                result = Math.max(result, 
+                Math.max(Math.abs(arr.get(n-1)-min), Math.abs(max-arr.get(0)))); 
+            }
+                
+            if(arr.get(0) < min) min = arr.get(0);
+            if(arr.get(n-1) > max) max = arr.get(n-1);  
+        }
+        return result;
+    }
+}
