@@ -1,0 +1,26 @@
+public int isUgly(int num, int d){
+
+        while(num % d == 0){
+            num /= d;
+        }
+        return num;
+    }
+    public boolean check(int num) {
+        num = isUgly(num, 2);
+        num = isUgly(num, 3);
+        num = isUgly(num, 5);
+
+        return num==1 ? true : false;
+    }
+    public int nthUglyNumber(int n) {
+        int count = 1;
+        int i = 1;
+        while(n > count){
+            i++;
+            if(check(i)){
+                count++;
+            }
+            
+        }
+        return i;
+    }
