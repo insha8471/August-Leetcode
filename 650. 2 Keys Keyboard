@@ -1,0 +1,20 @@
+Approach : Recursion
+Time complexity : O()
+
+
+class Solution {
+    public int helper(int currA, int clipB, int n){
+        if(currA == n){
+            return 1;
+        }
+
+        int paste += 1+helper(currA+clipB, clipB, n);
+
+        int copy += 1+helper(currA, currA, n);
+
+        return Math.min(paste, copy);
+    }
+    public int minSteps(int n) {
+        return helper(1,1,n);
+    }
+}
