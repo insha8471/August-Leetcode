@@ -1,0 +1,41 @@
+Approach : recursion + memo
+Time complexity : O(n^2)
+
+
+class Solution {
+    int[][][] t;
+    public int helper(int person, int ind, int M, int[] piles,int n) {
+        if(ind >= n){
+            return 0;
+        }
+
+        if(t[person][ind][M] != -1) {
+            return t[person][ind][M];
+        }
+
+        int stones = 0;
+        int result = (person == 1 ? 0 : Integer.MAX_VALUE);
+
+        for(int x=1;x<=Math.min(2*M, n-ind);x++) {
+            stones += piles[ind+x-1];
+            if(person == 1)
+                result = Math.max(result, stones+helper(0,ind+x, Math.max(M,x),piles,n));
+            else
+                result = Math.min(result, helper(1,ind+x,Math.max(M,x),piles,n));
+        }
+        return t[person][ind][M] = result;
+    }
+    public int stoneGameII(int[] piles) {
+        // alice = 1 and bob = 0
+        int n = piles.length;
+        t = new int[2][n+1][n+1];
+
+        for(int[][] a2 : t) {
+            for(int[] a1 : a2) {
+                Arrays.fill(a1,-1);
+            }
+        }
+        
+        return helper(1,0,1,piles,n);
+    }
+}
