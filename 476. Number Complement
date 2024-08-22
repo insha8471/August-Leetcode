@@ -14,3 +14,61 @@ class Solution {
         return Integer.parseInt(res, 2);
     }
 }
+
+Approach : Using masking
+Time complexity : O(logn)
+
+class Solution {
+    public int findComplement(int num) {
+        int noBits = (int)(Math.log(num)/Math.log(2))+1;
+
+        int mask = (1 << noBits)-1;
+
+        return (~num) & mask;
+    }
+}
+
+Approach 3 : Using XOR method
+Time complexitiy : O(jlog(num))
+
+class Solution {
+    public int findComplement(int num) {
+        int noBits = (int)(Math.log(num)/Math.log(2))+1;
+        int i;
+        for(i=0;i<noBits;i++){
+            num = num ^ (1<<i);
+        }
+        return num;
+    }
+}
+
+
+Approach 4 : Using mask and xor
+Time complexitiy : O(log(num))
+class Solution {
+    public int findComplement(int num) {
+        int noBits = (int)(Math.log(num)/Math.log(2))+1;
+        int mask = (1 << noBits)-1;
+
+        return num ^ mask;
+    }
+}
+
+Approach 5 : Using lsb
+Time complexity : O(log(num))
+class Solution {
+    public int findComplement(int num) {
+        int noBits = (int)(Math.log(num)/Math.log(2))+1;
+        int i= 0;
+        int complement = 0;
+        while(num != 0) {
+            if((num&1) == 0){
+                complement |= (1 << i);
+            }
+
+            num >>= 1;
+            i++;
+        }
+        return complement;
+    }
+}
