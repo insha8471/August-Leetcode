@@ -1,0 +1,44 @@
+Time complexity : O(n)
+
+class Solution {
+    public long helper(long firstHalf, boolean isEven) {
+        long res = firstHalf;
+        if(!isEven) firstHalf /= 10;
+        
+        while(firstHalf > 0) {
+            int digit = (int)(firstHalf%10);
+            res = (res*10)+digit;
+            firstHalf /= 10;
+        }
+        return res;
+    }
+
+    public String nearestPalindromic(String n) {
+        int len = n.length();
+        int mid = len/2;
+        long firstHalf = Long.parseLong(n.substring(0,len%2 == 0 ? mid : mid+1));
+
+        ArrayList<Long> possRes = new ArrayList<>();
+
+        possRes.add(helper(firstHalf, len%2 == 0));
+        possRes.add(helper(firstHalf+1,len%2 == 0));
+        possRes.add(helper(firstHalf-1, len%2 == 0));
+        possRes.add((long)Math.pow(10,len-1)-1);
+        possRes.add((long)Math.pow(10,len)+1);
+        
+        long res = 0;
+        long diff = Integer.MAX_VALUE;
+        long origNum = Long.parseLong(n);
+
+        for(long num : possRes){
+            if(num == origNum) continue;
+            if(Math.abs(num-origNum) < diff) {
+                diff = Math.abs(num-origNum);
+                res = num;
+            }else if(Math.abs(num-origNum) == diff) {
+                res = Math.min(res, num);
+            }
+        }
+        return String.valueOf(res);
+    }
+}
