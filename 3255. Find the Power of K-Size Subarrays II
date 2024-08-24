@@ -1,0 +1,19 @@
+Approach : Prefix Sum
+Time complexitiy : O(n)
+
+class Solution {
+    public int[] resultsArray(int[] nums, int k) {
+            int [] ans = new int [nums.length-k+1];
+            int [] v = new int [nums.length];
+            int idx =0;
+        for(int i=1; i<nums.length; i++){
+            if(nums[i]-nums[i-1] != 1) v[i] = v[i-1]-1;
+            else v[i] = v[i-1] + 1;
+        }
+        for(int i=0; i<=nums.length-k; i++){
+            if(v[i+k-1] - v[i] == k-1) ans[idx++] = nums[i+k-1];
+            else ans[idx++] = -1;
+        }
+        return ans;
+    }
+}
