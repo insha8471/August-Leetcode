@@ -1,0 +1,30 @@
+Time complexity : O(n)
+
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        List<Integer> ls = new ArrayList<>();
+        if(root == null) return ls;
+
+        while(!st.isEmpty()) {
+            TreeNode node = st.peek();
+
+            if(node.left == null && node.right == null) {
+                TreeNode pop = st.pop();
+                ls.add(pop.val);
+            }else {
+                if(node.right != null) {
+                    st.push(node.right);
+                    node.right = null;
+                }
+
+                if(node.left != null) {
+                    st.push(node.left);
+                    node.left = null;
+                }
+            }
+        }
+        return ls;
+    }
+}
