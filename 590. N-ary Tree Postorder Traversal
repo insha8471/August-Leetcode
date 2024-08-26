@@ -1,0 +1,16 @@
+class Solution {
+    public void traverse(Node root, ArrayList<Integer> ls) {
+        if(root == null) return;
+
+        for(Node child : root.children) {
+            traverse(child, ls);
+        }
+
+        ls.add(root.val);
+    }
+    public List<Integer> postorder(Node root) {
+        ArrayList<Integer>  res = new ArrayList<>();
+        traverse(root, res);
+        return res;
+    }
+}
